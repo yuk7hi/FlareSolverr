@@ -1,7 +1,6 @@
 import json
 import logging
 import os
-import sys
 import re
 import shutil
 
@@ -60,16 +59,11 @@ def get_webdriver() -> WebDriver:
     # if we are inside the Docker container, we avoid downloading the driver
     driver_exe_path = None
     version_main = None
-    logging.info(sys.platform)
     if os.path.exists("/app/chromedriver"):
         # running inside Docker
         driver_exe_path = "/app/chromedriver"
-    elif sys.platform.startswith("freebsd"):
+    elif os.path.exists("/usr/local/bin/chromedriver"):
         # OS is FreeBSD
-        logging.info("This is FreeBSD")
-        if not os.path.exists("/usr/local/bin/chromedriver"):
-            logging.info("Why you no install?")
-            os.system("pkg install -y chromium")
         driver_exe_path = "/usr/local/bin/chromedriver"
     else:
         version_main = get_chrome_major_version()
