@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import sys
 import re
 import shutil
 
@@ -62,6 +63,11 @@ def get_webdriver() -> WebDriver:
     if os.path.exists("/app/chromedriver"):
         # running inside Docker
         driver_exe_path = "/app/chromedriver"
+    elif sys.platform.startswith("freebsd"):
+        # OS is FreeBSD
+        if not os.path.exists("/usr/local/bin/chromedriver"):
+            os.system("pkg install -y chromium")
+        driver_exe_path = "/usr/local/bin/chromedriver"
     else:
         version_main = get_chrome_major_version()
         if PATCHED_DRIVER_PATH is not None:

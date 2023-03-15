@@ -17,7 +17,7 @@ import zipfile
 
 logger = logging.getLogger(__name__)
 
-IS_POSIX = sys.platform.startswith(("darwin", "cygwin", "linux", "linux2"))
+IS_POSIX = sys.platform.startswith(("darwin", "cygwin", "linux", "linux2", "freebsd"))
 
 
 class Patcher(object):
