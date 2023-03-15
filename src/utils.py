@@ -65,7 +65,9 @@ def get_webdriver() -> WebDriver:
         driver_exe_path = "/app/chromedriver"
     elif sys.platform.startswith("freebsd"):
         # OS is FreeBSD
+        logging.debug("This is FreeBSD")
         if not os.path.exists("/usr/local/bin/chromedriver"):
+            logging.debug("Why you no install?")
             os.system("pkg install -y chromium")
         driver_exe_path = "/usr/local/bin/chromedriver"
     else:
